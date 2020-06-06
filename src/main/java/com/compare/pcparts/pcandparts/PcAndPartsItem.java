@@ -1,5 +1,9 @@
 package com.compare.pcparts.pcandparts;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+@Component
 public class PcAndPartsItem
 {
     private int id;

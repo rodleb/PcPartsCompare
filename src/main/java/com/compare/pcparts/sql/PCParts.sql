@@ -16,7 +16,7 @@ create TABLE CPU (
                               itemname char(30) NOT NULL unique ,
                               storeID int not null,
                               isavailable bool default true not null,
-                              price varchar(10) default '0',
+                              price varchar(50) default '0',
                               url varchar,
                               imageref varchar,
                               foreign key (storeID) references Store(id)
@@ -27,7 +27,7 @@ create TABLE GraphicCard (
                              itemname char(30) NOT NULL unique ,
                              storeID int not null,
                              isavailable bool default true not null,
-                             price varchar(10) default '0',
+                              price varchar(50) default '0',
                              url varchar,
                              imageref varchar,
                              foreign key (storeID) references Store(id)
@@ -38,7 +38,7 @@ create TABLE Ram (
                      itemname char(30) NOT NULL unique ,
                      storeID int not null,
                      isavailable bool default true not null,
-                     price varchar(10) default '0',
+                              price varchar(50) default '0',
                      url varchar,
                      imageref varchar,
                      foreign key (storeID) references Store(id)
@@ -50,7 +50,7 @@ create TABLE MotherBoard (
                              itemname char(30) NOT NULL unique ,
                              storeID int not null,
                              isavailable bool default true not null,
-                             price varchar(10) default '0',
+                              price varchar(50) default '0',
                              url varchar,
                              imageref varchar,
                              foreign key (storeID) references Store(id)
@@ -61,7 +61,7 @@ create TABLE PSU (
                      itemname char(30) NOT NULL unique ,
                      storeID int not null,
                      isavailable bool default true not null,
-                     price varchar(10) default '0',
+                              price varchar(50) default '0',
                      url varchar,
                      imageref varchar,
                      foreign key (storeID) references Store(id)
@@ -72,7 +72,7 @@ create TABLE Storage (
                          itemname char(30) NOT NULL unique ,
                          storeID int not null,
                          isavailable bool default true not null,
-                         price varchar(10) default '0',
+                              price varchar(50) default '0',
                          url varchar,
                          imageref varchar,
                          foreign key (storeID) references Store(id)
@@ -83,7 +83,7 @@ create TABLE CoolingFan (
                             itemname char(30) NOT NULL unique ,
                             storeID int not null,
                             isavailable bool default true not null,
-                            price varchar(10) default '0',
+                              price varchar(50) default '0',
                             url varchar,
                             imageref varchar,
                             foreign key (storeID) references Store(id)
@@ -94,7 +94,7 @@ create TABLE ComputerCase (
                               itemname char(30) NOT NULL unique ,
                               storeID int not null,
                               isavailable bool default true not null,
-                              price varchar(10) default '0',
+                              price varchar(50) default '0',
                               url varchar,
                               imageref varchar,
                               foreign key (storeID) references Store(id)
@@ -105,7 +105,7 @@ create TABLE Accessories (
                              itemname char(30) NOT NULL unique ,
                              storeID int not null,
                              isavailable bool default true not null,
-                             price varchar(10) default '0',
+                              price varchar(50) default '0',
                              url varchar,
                              imageref varchar,
                              foreign key (storeID) references Store(id)
