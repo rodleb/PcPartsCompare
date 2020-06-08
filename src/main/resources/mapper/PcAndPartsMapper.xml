@@ -22,6 +22,10 @@
         #{url},
         #{imageref}
         )
+        ON CONFLICT (itemname)
+        DO
+        UPDATE SET
+        price = excluded.price;
     </insert>
 
 

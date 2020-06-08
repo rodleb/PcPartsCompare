@@ -13,19 +13,19 @@ import java.util.List;
 @RestController
 public class Controller {
 
-    PcAndPartsLogImp pcAndPartsLog;
-
+    PcAndPartsLogImp pcAndPartsLogImp;
+    public Controller(PcAndPartsLogImp pcAndPartsLogImp){this.pcAndPartsLogImp = pcAndPartsLogImp;}
     @GetMapping("/webscrap")
     public String WebScrapping() throws IOException
     {
-        return pcAndPartsLog.ScrappingPcAndParts();
+        return pcAndPartsLogImp.ScrappingPcAndParts();
 
     }
 
     @GetMapping("/allcpu")
     public List<PcAndPartsItem> allCpu() throws IOException
     {
-        return pcAndPartsLog.getAllCpuPcAndParts();
+        return pcAndPartsLogImp.getAllCpuPcAndParts();
 
     }
 }
