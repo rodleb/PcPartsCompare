@@ -2,13 +2,11 @@ package com.compare.pcparts.mapper;
 
 import com.compare.pcparts.pcandparts.PcAndPartsItem;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 
-@Mapper
+@Repository
+@org.apache.ibatis.annotations.Mapper
 public interface PcAndPartsMapper
 {
     /*

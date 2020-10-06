@@ -1,4 +1,4 @@
-
+create database PcPartsCompare;
 create TABLE Store (
                        id SERIAL PRIMARY KEY ,
                        storename varchar(30)NOT NULL UNIQUE ,

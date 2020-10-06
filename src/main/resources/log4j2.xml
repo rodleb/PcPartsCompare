@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="CONSOLE_PATTERN">%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink,
+            ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{${sys:PID}}{magenta} [%15.15t] %style{%-40.40C{1.}}{cyan} :
+            %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}
+        </Property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} %p - [%15.15t] %c : %m%n%ex</Property>
+        <Property name="ROLLING_DATE_PATTERN">%d{dd-MM-yyyy}-%i</Property>
+        <Property name="CHARGING_TRANSACTION_DATETIME_PREFIX_PATTERN">%d{YYYYMMddHH}</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!-- Rolling Files Appender -->
+        <RollingFile name="ApiFileAppender" fileName="../log/filter-for-msisdn.log"
+                     filePattern="../log/filter-for-msisdn-${ROLLING_DATE_PATTERN}.log.zip" append="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <!--Application Error File Appender-->
+        <RollingFile name="ApiErrorFileAppender" fileName="../log/filter-for-msisdn-error.log"
+                     filePattern="../log/filter-for-msisdn-error-${ROLLING_DATE_PATTERN}.log.zip" append="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+
+        <logger name="com.monty" level="DEBUG" additivity="false">
+            <AppenderRef ref="ConsoleAppender" level="INFO"/>
+            <AppenderRef ref="ApiErrorFileAppender" level="ERROR"/>
+            <AppenderRef ref="ApiFileAppender" level="INFO"/>
+        </logger>
+
+        <Root level="WARN">
+            <AppenderRef ref="ConsoleAppender" level="WARN"/>
+            <AppenderRef ref="ApiErrorFileAppender" level="ERROR"/>
+            <AppenderRef ref="ApiFileAppender" level="WARN"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
