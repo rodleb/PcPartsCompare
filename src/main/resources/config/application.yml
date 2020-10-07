@@ -1,0 +1,42 @@
+spring:
+  profiles: test
+
+website:
+  id: 1
+  name: PcAndParts
+  url: https://pcandparts.com/
+  imageRef:
+  operations:
+    operatingDaysOpenning: Monday
+    operatingDaysClosing: Saturday
+    operatingHoursOpenning: 9
+    operatingHoursOpenningPeriod: AM
+    operatingHoursClosing: 6
+    operatingHoursClosingPeriod: PM
+    operatingHoursWeekendOpenning: 9
+    operatingHoursWeekendOpenningPeriod: AM
+    operatingHoursWeekendClosing: 1
+    operatingHoursWeekendClosingPeriod: PM
+  pricesWithVAT: false
+  contactAddress:
+  contactEmail:
+  contactNumber:
+    - 0196321458
+    - 896523
+    - 789456123
+  xPathLocation:
+    Xpath: //div[@class='product-small box ']
+    productNameXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a[@href]
+    productPriceXpath: .//span[@class='woocommerce-Price-amount amount']
+    productUrlXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a
+    productAltPriceXpath: .//span[@class='price'
+  urlPage:
+    cpu: https://pcandparts.com/cpu/
+    computercase: https://pcandparts.com/computer-cases/
+    coolingfan: https://pcandparts.com/cooling/
+    memory: https://pcandparts.com/memory/
+    motherboard: https://pcandparts.com/motherboard/
+    psu: https://pcandparts.com/power-supplies/
+    storage1: https://pcandparts.com/storage-hdd-hard-drives-nvme-ssd-m2/
+    storage2: https://pcandparts.com/storage-hdd-hard-drives-nvme-ssd-m2/page/2/
+    graphiccard: https://pcandparts.com/video-card/

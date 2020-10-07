@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Component
@@ -36,10 +35,9 @@ public class PcAndPartsLogImp implements PcAndPartsLog
 	}
 
 	@Override
-	public String ScrappingPcAndParts() throws IOException
+	public void ScrappingPcAndParts() throws IOException
 	{
 
-		System.out.println("Hi");
 		client.getOptions().setJavaScriptEnabled(false);
 		client.getOptions().setCssEnabled(false);
 		client.getOptions().setUseInsecureSSL(true);
@@ -49,23 +47,42 @@ public class PcAndPartsLogImp implements PcAndPartsLog
 		List<HtmlDivision> items = page.getByXPath("//div[@class='product-small box ']");
 
 		System.out.println("Items Size: " + items.size());
-
+		HtmlElement productName;
+		HtmlElement productPrice;
+		HtmlElement productPrice2;
+		HtmlAnchor element3;
+		String itemName;
+		String itemPrice = null;
+		String itemUrl;
 		for(HtmlElement element : items)
 		{
+			productName = element.getFirstByXPath(".//p[@class='name product-title woocommerce-loop-product__title']/a[@href]");
+			productPrice = element.getFirstByXPath(".//span[@class='woocommerce-Price-amount amount']");
+			element3 = element.getFirstByXPath(".//p[@class='name product-title woocommerce-loop-product__title']/a");
+			itemName = productName.getVisibleText();
+			try
+			{
+				itemPrice = productPrice.getVisibleText();
+			}
+			catch(NullPointerException ne)
+			{
+				System.out.println("Trying 2nd option");
+				try
+				{
 
-			HtmlElement productName = element.getFirstByXPath(".//p[@class='name product-title']/a[@href]");
-			HtmlElement productPrice = element.getFirstByXPath(".//span[@class='price']");
-			HtmlAnchor element3 = element.getFirstByXPath(".//p[@class='name product-title']/a");
-			String itemName = productName.getVisibleText();
-			String itemPrice = productPrice.getVisibleText();
-			String itemUrl = element3.getHrefAttribute();
-
+					productPrice2 = element.getFirstByXPath(".//span[@class='price']");
+					itemPrice = productPrice2.getVisibleText();
+				}
+				catch(Exception e)
+				{
+					System.out.println("Something went wrong. check the Xpath.\nException at: " + e);
+				}
+			}
+			itemUrl = element3.getHrefAttribute();
 			String description = ("Product Name: " + itemName + "\nProduct Price: " + itemPrice + "\nURL: " + itemUrl);
 			System.out.println(description);
 			AddToItem(itemName, itemPrice, itemUrl);
-
 		}
-		return "Scrapped 1";
 	}
 
 	@Override
@@ -86,8 +103,8 @@ public class PcAndPartsLogImp implements PcAndPartsLog
 		pcAndPartsItem.setPrice(itemPrice);
 		pcAndPartsItem.setUrl(itemUrl);
 		pcAndPartsItem.setStoreid(1);
-        pcAndPartsMapper.insertCpu(pcAndPartsItem);
+		pcAndPartsMapper.insertCpu(pcAndPartsItem);
 
-    }
+	}
 
 }

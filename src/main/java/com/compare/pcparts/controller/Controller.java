@@ -12,13 +12,14 @@ import java.util.List;
 
 @RestController
 public class Controller {
-
+    @Autowired
     PcAndPartsLogImp pcAndPartsLogImp;
+
     public Controller(PcAndPartsLogImp pcAndPartsLogImp){this.pcAndPartsLogImp = pcAndPartsLogImp;}
     @GetMapping("/webscrap")
-    public String WebScrapping() throws IOException
+    public void WebScrapping() throws IOException
     {
-        return pcAndPartsLogImp.ScrappingPcAndParts();
+         pcAndPartsLogImp.ScrappingPcAndParts();
 
     }
 

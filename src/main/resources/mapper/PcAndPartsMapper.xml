@@ -22,7 +22,7 @@
         #{url},
         #{imageref}
         )
-        ON CONFLICT (itemname)
+        ON CONFLICT (url)
         DO
         UPDATE SET
         price = excluded.price;
