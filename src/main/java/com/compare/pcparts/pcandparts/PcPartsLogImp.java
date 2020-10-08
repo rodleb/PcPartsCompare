@@ -1,6 +1,6 @@
 package com.compare.pcparts.pcandparts;
 
-import com.compare.pcparts.mapper.PcAndPartsMapper;
+import com.compare.pcparts.mapper.PcPartsMapper;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Component
-public class PcAndPartsLogImp implements PcAndPartsLog
+public class PcPartsLogImp implements PcPartsLog
 {
 	private static final String baseUrl1 = "https://pcandparts.com/computer-cases/";
 	private static final String baseUrl2 = "https://pcandparts.com/cpu/";
@@ -29,13 +29,13 @@ public class PcAndPartsLogImp implements PcAndPartsLog
 
 	WebClient client = new WebClient();
 
-	public PcAndPartsLogImp(PcAndPartsMapper pcAndPartsMapper)
+	public PcPartsLogImp(PcPartsMapper pcPartsMapper)
 	{
-		this.pcAndPartsMapper = pcAndPartsMapper;
+		this.pcPartsMapper = pcPartsMapper;
 	}
 
 	@Override
-	public void ScrappingPcAndParts() throws IOException
+	public void ScrappingPcParts() throws IOException
 	{
 
 		client.getOptions().setJavaScriptEnabled(false);
@@ -86,24 +86,25 @@ public class PcAndPartsLogImp implements PcAndPartsLog
 	}
 
 	@Override
-	public List<PcAndPartsItem> getAllCpuPcAndParts() throws IOException
+	public List<PcPartsItem> getAllCpuPcAndParts() throws IOException
 	{
-		return pcAndPartsMapper.getAllCpu();
+		return pcPartsMapper.getAllCpu();
 	}
 
 	@Autowired
-	public PcAndPartsItem pcAndPartsItem;
+	public PcPartsItem pcPartsItem;
 
 	@Autowired
-	public PcAndPartsMapper pcAndPartsMapper;
+	public PcPartsMapper pcPartsMapper;
 
 	private void AddToItem(String itemName, String itemPrice, String itemUrl)
 	{
-		pcAndPartsItem.setItemname(itemName);
-		pcAndPartsItem.setPrice(itemPrice);
-		pcAndPartsItem.setUrl(itemUrl);
-		pcAndPartsItem.setStoreid(1);
-		pcAndPartsMapper.insertCpu(pcAndPartsItem);
+		pcPartsItem.setItem_name(itemName);
+		pcPartsItem.setPrice(itemPrice);
+		pcPartsItem.setCurrency("$");
+		pcPartsItem.setUrl(itemUrl);
+		pcPartsItem.setStore_id(1);
+		pcPartsMapper.insertCpu(pcPartsItem);
 
 	}
 

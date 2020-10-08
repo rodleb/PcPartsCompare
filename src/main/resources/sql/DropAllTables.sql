@@ -4,16 +4,17 @@ CREATE SCHEMA public;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
 
-insert into store (id, storename, imageref, operatinghours, contactaddress, contactemail, contactnumber1, contactnumber2, contactnumber3)
- values(1,'pcandparts.com',null,null,null,null,null,null,null) ;
+insert into store (id, store_name, url, image_ref, prices_including_vat, vat_percent)
+ values(1,'pcandparts','pcandparts.com',null,null,null) ;
 
  insert into cpu
          (
          id,
-         itemname,
-         storeid,
-         isavailable,
+         item_name,
+         store_id,
+         is_available,
          price,
+         currency,
          url,
-         imageref)
+         image_ref)
           values (1,'qwer',1,true,'1234','cpuultra.com',null);
