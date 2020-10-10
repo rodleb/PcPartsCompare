@@ -17,15 +17,16 @@ pricesIncludingVAT: false
 vatPercent: 11
 contactAddress:
 contactEmail:
-contactNumber:
-  - 0196321458
-  - 896523
-  - 789456123
+contactNumber1: 0196321458
+contactNumber2: 896523
+contactNumber3: 789456123
 Xpath: //div[@class='product-small box ']
 productNameXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a[@href]
 productPriceXpath: .//span[@class='woocommerce-Price-amount amount']
 productUrlXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a
-productAltPriceXpath: .//span[@class='price'
+productAltXpath1: .//span[@class='price'
+productAltXpath2:
+productAltXpath3:
 cpuUrl:
   - https://pcandparts.com/cpu/
 computercaseUrl:

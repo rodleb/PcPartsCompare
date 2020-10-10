@@ -1,6 +1,6 @@
 create TABLE store (
     id SERIAL PRIMARY KEY ,
-    store_name varchar NOT NULL ,
+    store_name varchar UNIQUE NOT NULL ,
     url varchar,
     image_ref varchar,
     prices_including_vat bool,
@@ -21,7 +21,9 @@ create TABLE store_contact_detail (
     store_id int NOT NULL,
     contact_address varchar,
     contact_email varchar,
-    contact_number varchar,
+    contact_number_1 varchar,
+    contact_number_2 varchar,
+    contact_number_3 varchar,
     foreign key (store_id) references store(id)
 );
 
@@ -54,6 +56,7 @@ create TABLE cpu (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -66,6 +69,7 @@ create TABLE graphics_card (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -78,6 +82,7 @@ create TABLE memory (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -90,6 +95,7 @@ create TABLE motherboard (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -102,6 +108,7 @@ create TABLE power_supply_unit (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -114,6 +121,7 @@ create TABLE storage (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -126,6 +134,7 @@ create TABLE cooling_fan (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -138,6 +147,7 @@ create TABLE computer_cases (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
@@ -150,6 +160,7 @@ create TABLE accessories (
     price varchar(500),
     currency varchar(10),
     url varchar(500) unique not null,
+    is_new bool default true,
     image_ref varchar(500),
     foreign key (store_id) references store(id)
 );

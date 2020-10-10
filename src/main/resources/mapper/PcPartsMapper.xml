@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.compare.pcparts.mapper.PcPartsMapper">
+
+    <insert id="insertCpu">
+        insert into cpu
+        (
+        id,
+        item_name,
+        store_id,
+        is_available,
+        price,
+        currency,
+        url,
+        image_ref
+        )
+        values(
+        default,
+        #{item_name},
+        #{store_id},
+        #{is_available},
+        #{price},
+        #{currency},
+        #{url},
+        #{image_ref}
+        )
+        ON CONFLICT (url)
+        DO
+        UPDATE SET
+        price = excluded.price;
+    </insert>
+
+
+
+    <select id="getAllCpu" resultType="com.compare.pcparts.pcandparts.PcPartsItem">
+        SELECT *
+        FROM cpu;
+    </select>
+
+
+
+    <insert id="insertStore">
+        insert into store
+        values(
+        #{store_id},
+        #{store_name},
+        #{url},
+        #{image_ref},
+        #{prices_including_vat},
+        #{vat_percent}
+        );
+    </insert>
+    <insert id="insertStoreContactDetail">
+        insert into store_contact_detail
+        values(
+        default,
+        #{store_id},
+        #{contact_address},
+        #{contact_email},
+        #{contact_number_1},
+        #{contact_number_2},
+        #{contact_number_3}
+        );
+    </insert>
+    <insert id="insertStoreOperatingTime">
+        insert into store_operating_time
+        values(
+        default,
+        #{store_id},
+        #{operating_hours_weekdays},
+        #{operating_hours_weekend},
+        #{operating_days}
+        );
+    </insert>
+    <insert id="insertStoreXPath">
+        insert into store_xpath
+        values(
+        default,
+        #{store_id},
+        #{xpath},
+        #{product_name_xpath},
+        #{product_price_xpath},
+        #{product_url_xpath},
+        #{alt_xpath_1},
+        #{alt_xpath_2},
+        #{alt_xpath_3}
+        );
+    </insert>
+    <insert id="insertStoreItemsUrl">
+        insert into store_items_url
+        values(
+        default,
+        #{store_id},
+        #{part_name},
+        #{page_url}
+        );
+    </insert>
+
+
+
+    <select id="getStoreInfo" resultType="com.compare.pcparts.store.items.StoreItem">
+        SELECT *
+        FROM store;
+    </select>
+    <select id="getStoreContactInfo" resultType="com.compare.pcparts.store.items.StoreContactDetailItem">
+        SELECT *
+        FROM store_contact_detail;
+    </select>
+    <select id="getStoreOperatingTime" resultType="com.compare.pcparts.store.items.StoreOperatingTimeItem">
+        SELECT *
+        FROM store_operating_time;
+    </select>
+
+
+
+    <select id="getMiniStoreInfo" resultType="com.compare.pcparts.store.miniitem.MiniStoreItem">
+        SELECT id, store_name
+        FROM store;
+    </select>
+    <select id="getStoreXPath" resultType="com.compare.pcparts.store.items.StoreXPathItem">
+        select part_name, page_url
+        FROM public.store_items_url
+        where store_id ='#{id};
+    </select>
+    <select id="getStoreUrl" resultType="com.compare.pcparts.store.items.StoreUrlItem">
+        SELECT *
+        FROM store_items_url
+        where store_id ='#{id};
+    </select>
+</mapper>

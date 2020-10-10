@@ -12,7 +12,7 @@ public class PcPartsItem
     private int id;
     private String item_name;
     private int store_id;
-    private boolean is_available = true;
+    private boolean is_available;
     private String price;
     private String currency;
     private String url;
