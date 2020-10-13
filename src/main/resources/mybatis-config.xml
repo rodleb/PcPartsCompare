@@ -26,16 +26,16 @@
 
             <dataSource type = "UNPOOLED/POOLED/JNDI">
                 <property name = "driver" value = "org.postgresql.Driver"/>
-                <property name = "url" value = "jdbc:postgresql://localhost:5432/ComputerPartsLeb"/>
+                <property name = "url" value = "jdbc:postgresql://localhost:5432/pcpartscompare"/>
                 <property name = "username" value = "postgres"/>
-                <property name = "password" value = "0503297777"/>
+                <property name = "password" value = "postgres"/>
             </dataSource>
 
         </environment>
     </environments>
 
     <mappers>
-        <mapper resource = "mapper/PcAndPartsMapper.xml"/>
+        <mapper resource = "mapper/PcPartsMapper.xml"/>
     </mappers>
 
 </configuration>

@@ -1,7 +1,7 @@
 #Website info to import
-id: 1
-name: PcAndParts
-url: https://pcandparts.com/
+id: 2
+name: Mojitech
+url: https://mojitech.net/
 imageRef:
 operatingDaysOpenning: Monday
 operatingDaysClosing: Saturday
@@ -13,34 +13,67 @@ operatingHoursWeekendOpenning: 9
 operatingHoursWeekendOpenningPeriod: AM
 operatingHoursWeekendClosing: 1
 operatingHoursWeekendClosingPeriod: PM
+currency: $
 pricesIncludingVAT: false
 vatPercent: 11
 contactAddress:
 contactEmail:
-contactNumber1: 0196321458
-contactNumber2: 896523
-contactNumber3: 789456123
+contactNumber1: 009613417443
+contactNumber2: 009611693444
+contactNumber3:
 Xpath: //div[@class='product-small box ']
 productNameXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a[@href]
 productPriceXpath: .//span[@class='woocommerce-Price-amount amount']
 productUrlXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a
-productAltXpath1: .//span[@class='price'
+productAltXpath1: .//span[@class='price']
 productAltXpath2:
 productAltXpath3:
 cpuUrl:
-  - https://pcandparts.com/cpu/
+  - https://mojitech.net/product-category/pc-parts/cpus/
+  - https://mojitech.net/product-category/pc-parts/cpus/page/2/
 computercaseUrl:
-  - https://pcandparts.com/computer-cases/
+  - https://mojitech.net/product-category/pc-parts/computer-cases/
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/2/
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/3/
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/4/
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/5/
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/6/
 coolingfanUrl:
-  - https://pcandparts.com/cooling/
+  - https://mojitech.net/product-category/pc-parts/cooling/
+  - https://mojitech.net/product-category/pc-parts/cooling/page/2/
+  - https://mojitech.net/product-category/pc-parts/cooling/page/3/
+  - https://mojitech.net/product-category/pc-parts/cooling/page/4/
+  - https://mojitech.net/product-category/pc-parts/cooling/page/5/
 memoryUrl:
-  - https://pcandparts.com/memory/
+  - https://mojitech.net/product-category/pc-parts/memory/
+  - https://mojitech.net/product-category/pc-parts/memory/page/2/
+  - https://mojitech.net/product-category/pc-parts/memory/page/3/
+  - https://mojitech.net/product-category/pc-parts/memory/page/4/
+  - https://mojitech.net/product-category/pc-parts/memory/page/5/
 motherboardUrl:
-  - https://pcandparts.com/motherboard/
+  - https://mojitech.net/product-category/pc-parts/motherboards/
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/2/
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/3/
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/4/
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/5/
 psuUrl:
-  - https://pcandparts.com/power-supplies/
+  - https://mojitech.net/product-category/pc-parts/power-supplies/
+  - https://mojitech.net/product-category/pc-parts/power-supplies/page/2/
+  - https://mojitech.net/product-category/pc-parts/power-supplies/page/3/
+  - https://mojitech.net/product-category/pc-parts/power-supplies/page/4/
 storageUrl:
-  - https://pcandparts.com/storage-hdd-hard-drives-nvme-ssd-m2/
-  - https://pcandparts.com/storage-hdd-hard-drives-nvme-ssd-m2/page/2/
+  - https://mojitech.net/product-category/pc-parts/storage/
+  - https://mojitech.net/product-category/pc-parts/storage/page/2/
+  - https://mojitech.net/product-category/pc-parts/storage/page/3/
+  - https://mojitech.net/product-category/pc-parts/storage/page/4/
+  - https://mojitech.net/product-category/pc-parts/storage/page/5/
+  - https://mojitech.net/product-category/pc-parts/storage/page/6/
+  - https://mojitech.net/product-category/pc-parts/storage/page/7/
 graphiccardUrl:
-  - https://pcandparts.com/video-card/
+  - https://mojitech.net/product-category/pc-parts/video-cards/
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/2/
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/3/
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/4/
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/5/
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/6/
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/7/

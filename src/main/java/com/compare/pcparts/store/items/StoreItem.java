@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 
 public class StoreItem
 {
-	int store_id;
+	int id;
 	String store_name;
 	String url;
 	String image_ref;
+	String currency;
 	Boolean prices_including_vat;
 	Float vat_percent;
 }

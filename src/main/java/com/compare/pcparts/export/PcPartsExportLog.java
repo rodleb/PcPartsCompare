@@ -1,11 +1,12 @@
-package com.compare.pcparts.pcandparts;
+package com.compare.pcparts.export;
+
+import com.compare.pcparts.webscrape.PcPartsItem;
 
 import java.io.IOException;
 import java.util.List;
 
-public interface PcPartsLog
+public interface PcPartsExportLog
 {
-	public void ScrappingPcParts() throws IOException;
 	public List<PcPartsItem> getAllCpuPcAndParts() throws IOException;
-}
 
+}

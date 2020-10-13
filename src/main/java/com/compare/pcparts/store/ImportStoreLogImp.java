@@ -2,8 +2,6 @@ package com.compare.pcparts.store;
 
 import com.compare.pcparts.mapper.PcPartsMapper;
 import com.compare.pcparts.store.items.*;
-import com.compare.pcparts.store.miniitem.MiniStoreItem;
-import com.compare.pcparts.store.miniitem.MiniStoreUrlItem;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +10,7 @@ import java.util.List;
 
 @Log4j2
 @Component
-public class StoreLogImp implements StoreLog
+public class ImportStoreLogImp implements ImportStoreLog
 {
 	@Autowired
 	StoreConfiguration config;
@@ -38,10 +36,11 @@ public class StoreLogImp implements StoreLog
 	@Override
 	public void importStore()
 	{
-		storeItem.setStore_id(config.getId());
+		storeItem.setId(config.getId());
 		storeItem.setStore_name(config.getName());
 		storeItem.setUrl(config.getUrl());
 		storeItem.setImage_ref(config.getImageref());
+		storeItem.setCurrency(config.getCurrency());
 		storeItem.setPrices_including_vat(config.getPricesIncludingVAT());
 		storeItem.setVat_percent(config.getVatPercent());
 		pcPartsMapper.insertStore(storeItem);
@@ -86,8 +85,6 @@ public class StoreLogImp implements StoreLog
 		List<String> psu_url = config.getPsuUrl();
 		List<String> storage_url = config.getStorageUrl();
 		List<String> graphics_card_url = config.getGraphiccardUrl();
-		//TODO: add for loop
-
 		for(String element : cpu_url){
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPage_url(element);
@@ -152,39 +149,6 @@ public class StoreLogImp implements StoreLog
 		storeXPathItem.setAlt_xpath_3(config.getProductAltXpath3());
 		pcPartsMapper.insertStoreXPath(storeXPathItem);
 		log.info("Import XPath finished.");
-	}
-
-	//TODO: I do not trust the below
-
-	private List<MiniStoreItem> miniStoreItemList;
-	protected List<Integer> storeIdList;
-	private List<String> storeNameList;
-	private List<MiniStoreUrlItem> miniStoreUrlItemsList;
-	@Override
-	public void getMiniStore()
-	{
-		miniStoreItemList = pcPartsMapper.getMiniStoreInfo();
-		for(MiniStoreItem item : miniStoreItemList){
-			storeIdList.add( item.getId());
-			storeNameList.add(item.getStoreName());
-			log.info("id: "+storeIdList+"\n name: "+storeNameList);
-		}
-	}
-
-	private List<StoreUrlItem> storeUrlItemsList;
-	@Override
-	public void getUrl()
-	{
-		for(int id : storeIdList)
-		{
-			miniStoreUrlItemsList = pcPartsMapper.getStoreUrl(id);
-		}
-	}
-
-	@Override
-	public void getXPath()
-	{
-
 	}
 
 }

@@ -1,0 +1,47 @@
+#Website info to import
+id: 1
+name: PcAndParts
+url: https://pcandparts.com/
+imageRef:
+operatingDaysOpenning: Monday
+operatingDaysClosing: Saturday
+operatingHoursOpenning: 9
+operatingHoursOpenningPeriod: AM
+operatingHoursClosing: 6
+operatingHoursClosingPeriod: PM
+operatingHoursWeekendOpenning: 9
+operatingHoursWeekendOpenningPeriod: AM
+operatingHoursWeekendClosing: 1
+operatingHoursWeekendClosingPeriod: PM
+currency: $
+pricesIncludingVAT: false
+vatPercent: 11
+contactAddress:
+contactEmail:
+contactNumber1: 0196321458
+contactNumber2: 896523
+contactNumber3: 789456123
+Xpath: //div[@class='product-small box ']
+productNameXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a[@href]
+productPriceXpath: .//span[@class='woocommerce-Price-amount amount']
+productUrlXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a
+productAltXpath1: .//span[@class='price']
+productAltXpath2:
+productAltXpath3:
+cpuUrl:
+  - https://pcandparts.com/cpu/
+computercaseUrl:
+  - https://pcandparts.com/computer-cases/
+coolingfanUrl:
+  - https://pcandparts.com/cooling/
+memoryUrl:
+  - https://pcandparts.com/memory/
+motherboardUrl:
+  - https://pcandparts.com/motherboard/
+psuUrl:
+  - https://pcandparts.com/power-supplies/
+storageUrl:
+  - https://pcandparts.com/storage-hdd-hard-drives-nvme-ssd-m2/
+  - https://pcandparts.com/storage-hdd-hard-drives-nvme-ssd-m2/page/2/
+graphiccardUrl:
+  - https://pcandparts.com/video-card/

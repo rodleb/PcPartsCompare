@@ -1,10 +1,6 @@
 package com.compare.pcparts.store;
 
-import com.compare.pcparts.store.items.*;
-
-import java.util.List;
-
-public interface StoreLog
+public interface ImportStoreLog
 {
 	public void importStore();
 	public void importOperatingTime();
@@ -12,8 +8,5 @@ public interface StoreLog
 	public void importStoreItemsUrl();
 	public void importXPath();
 
-	public void getMiniStore();
-	public void getUrl();
-	public void getXPath();
 
 }

@@ -30,6 +30,7 @@ public class StoreConfiguration
 	String operatingHoursWeekendOpenningPeriod;
 	String operatingHoursWeekendClosing;
 	String operatingHoursWeekendClosingPeriod;
+	String currency;
 	Boolean pricesIncludingVAT;
 	Float vatPercent;
 	String contactAddress;

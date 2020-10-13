@@ -3,6 +3,7 @@ create TABLE store (
     store_name varchar UNIQUE NOT NULL ,
     url varchar,
     image_ref varchar,
+    currency varchar,
     prices_including_vat bool,
     vat_percent numeric
 );
@@ -45,6 +46,20 @@ create TABLE store_xpath (
     alt_xpath_1 varchar,
     alt_xpath_2 varchar,
     alt_xpath_3 varchar,
+    foreign key (store_id) references store(id)
+);
+
+create TABLE items (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    item_type varchar not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
     foreign key (store_id) references store(id)
 );
 

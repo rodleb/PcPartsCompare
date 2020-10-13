@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.compare.pcparts.mapper.PcPartsMapper">
 
-    <insert id="insertCpu">
-        insert into cpu
+    <insert id="insertItem">
+        insert into items
         (
         id,
         item_name,
         store_id,
+        item_type,
         is_available,
         price,
         currency,
@@ -18,6 +19,7 @@
         default,
         #{item_name},
         #{store_id},
+        #{item_type},
         #{is_available},
         #{price},
         #{currency},
@@ -32,7 +34,7 @@
 
 
 
-    <select id="getAllCpu" resultType="com.compare.pcparts.pcandparts.PcPartsItem">
+    <select id="getAllCpu" resultType="com.compare.pcparts.webscrape.PcPartsItem">
         SELECT *
         FROM cpu;
     </select>
@@ -42,10 +44,11 @@
     <insert id="insertStore">
         insert into store
         values(
-        #{store_id},
+        #{id},
         #{store_name},
         #{url},
         #{image_ref},
+        #{currency},
         #{prices_including_vat},
         #{vat_percent}
         );
@@ -110,21 +113,16 @@
         SELECT *
         FROM store_operating_time;
     </select>
-
-
-
-    <select id="getMiniStoreInfo" resultType="com.compare.pcparts.store.miniitem.MiniStoreItem">
-        SELECT id, store_name
-        FROM store;
-    </select>
     <select id="getStoreXPath" resultType="com.compare.pcparts.store.items.StoreXPathItem">
-        select part_name, page_url
-        FROM public.store_items_url
-        where store_id ='#{id};
+        select *
+        FROM store_xpath
+        where store_id = #{id};
     </select>
     <select id="getStoreUrl" resultType="com.compare.pcparts.store.items.StoreUrlItem">
         SELECT *
         FROM store_items_url
-        where store_id ='#{id};
+        where store_id = #{id} ;
     </select>
+
+
 </mapper>

@@ -1,31 +1,35 @@
 package com.compare.pcparts.controller;
 
+import com.compare.pcparts.export.PcPartsExportLog;
+import com.compare.pcparts.store.ImportStoreLog;
 import com.compare.pcparts.store.StoreConfiguration;
-import com.compare.pcparts.pcandparts.PcPartsItem;
-import com.compare.pcparts.pcandparts.PcPartsLogImp;
-import com.compare.pcparts.store.StoreLogImp;
+import com.compare.pcparts.webscrape.WebscrapeLog;
+import com.compare.pcparts.webscrape.WebscrapeLogImp;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.List;
+
 @Log4j2
+
 @RestController
 public class Controller {
     @Autowired
-    PcPartsLogImp pcPartsLogImp;
+    WebscrapeLog webscrapeLog;
     @Autowired
     StoreConfiguration config;
     @Autowired
-    StoreLogImp storeLogImp;
+    ImportStoreLog storeLogImp;
+    @Autowired
+    PcPartsExportLog pcPartsExportLog;
 
-    public Controller(PcPartsLogImp pcPartsLogImp){this.pcPartsLogImp = pcPartsLogImp;}
+    public Controller(WebscrapeLogImp webscrapeLog){this.webscrapeLog = webscrapeLog;}
     @GetMapping("/webscrap")
     public void WebScrapping() throws IOException
     {
-         pcPartsLogImp.ScrappingPcParts();
+        webscrapeLog.getStore();
     }
     @GetMapping("/importstore")
     public  String ImportStore() throws Exception
@@ -45,16 +49,21 @@ public class Controller {
 
         return "Store have been Imported Successfully";
     }
-
+/*
     @GetMapping("/allcpu")
     public List<PcPartsItem> AllCpu() throws IOException
     {
-        return pcPartsLogImp.getAllCpuPcAndParts();
+        return pcPartsExportLog.getAllCpuPcAndParts();
 
     }
+
+ */
+
+    //testing stuff here
     @GetMapping("/test")
-    public void test()
+    public void test()  throws IOException
     {
-        storeLogImp.getMiniStore();
+        //maybe return something here
+
     }
 }
