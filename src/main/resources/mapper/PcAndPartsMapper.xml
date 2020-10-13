@@ -1,36 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.compare.pcparts.mapper.PcAndPartsMapper">
+<mapper namespace="com.compare.pcpartstest.mapper.PcPartsMapper">
 
-    <insert id="insertCpu">
-        insert into cpu
+    <insert id="insertItem">
+        insert into test.test_items
         (
         id,
-        itemname,
-        storeid,
-        isavailable,
+        item_name,
         price,
-        url,
-        imageref
+        url
         )
         values(
         default,
-        #{itemname},
-        #{storeid},
-        #{isavailable},
+        #{item_name},
         #{price},
-        #{url},
-        #{imageref}
+        #{url}
         )
-        ON CONFLICT (itemname)
+        ON CONFLICT (url)
         DO
         UPDATE SET
         price = excluded.price;
     </insert>
 
 
-    <select id="getAllCpu" resultType="com.compare.pcparts.pcandparts.PcAndPartsItem">
+    <select id="getAllItems" resultType="com.compare.pcpartstest.pcparts.PcPartsItem">
         SELECT *
-        FROM cpu
+        FROM test.test_items;
     </select>
 </mapper>

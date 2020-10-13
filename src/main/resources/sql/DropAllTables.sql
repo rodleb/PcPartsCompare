@@ -1,0 +1,4 @@
+DROP SCHEMA test CASCADE;
+CREATE SCHEMA test;
+GRANT ALL ON SCHEMA test TO postgres;
+GRANT ALL ON SCHEMA test TO public;

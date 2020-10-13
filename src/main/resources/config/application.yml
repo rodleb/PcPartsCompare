@@ -1,0 +1,6 @@
+xPath: //div[@class='product-small box ']
+nameXPath: .//p[@class='name product-title woocommerce-loop-product__title']/a[@href]
+priceXPath: .//span[@class='price']
+urlXPath: .//p[@class='name product-title woocommerce-loop-product__title']/a
+altXPath: .//span[@class='price']
+attempt: 555555

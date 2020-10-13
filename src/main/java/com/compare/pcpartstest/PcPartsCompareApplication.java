@@ -1,4 +1,4 @@
-package com.compare.pcparts;
+package com.compare.pcpartstest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
