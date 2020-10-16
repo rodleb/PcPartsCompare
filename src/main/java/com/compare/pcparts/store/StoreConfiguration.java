@@ -53,4 +53,6 @@ public class StoreConfiguration
 	List<String> psuUrl;
 	List<String> storageUrl;
 	List<String> graphiccardUrl;
+	List<String> laptopUrl;
+	List<String> accessoriesUrl;
 }

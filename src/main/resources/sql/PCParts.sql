@@ -51,15 +51,17 @@ create TABLE store_xpath (
 
 create TABLE items (
     id SERIAL PRIMARY KEY ,
-    item_name char(300) NOT NULL ,
+    item_name varchar NOT NULL ,
+    item_name_alt varchar,
     store_id int not null,
     item_type varchar not null,
     is_available bool default true,
-    price varchar(500),
-    currency varchar(10),
-    url varchar(500) unique not null,
+    price varchar,
+    price_pure decimal,
+    currency varchar,
+    url varchar unique not null,
     is_new bool default true,
-    image_ref varchar(500),
+    image_ref varchar,
     foreign key (store_id) references store(id)
 );
 

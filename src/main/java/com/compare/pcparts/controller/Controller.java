@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @Log4j2
-
 @RestController
 public class Controller {
     @Autowired
@@ -49,15 +48,6 @@ public class Controller {
 
         return "Store have been Imported Successfully";
     }
-/*
-    @GetMapping("/allcpu")
-    public List<PcPartsItem> AllCpu() throws IOException
-    {
-        return pcPartsExportLog.getAllCpuPcAndParts();
-
-    }
-
- */
 
     //testing stuff here
     @GetMapping("/test")

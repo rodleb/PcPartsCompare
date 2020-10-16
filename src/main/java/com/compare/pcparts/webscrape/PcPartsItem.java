@@ -11,11 +11,13 @@ public class PcPartsItem
 {
     private int id;
     private String item_name;
+    private String item_name_alt = null;
     private int store_id;
     private String item_type;
     private boolean is_available;
     private String price;
+    private float price_pure;
     private String currency;
     private String url;
-    private String image_ref= "null";
+    private String image_ref= null;
 }

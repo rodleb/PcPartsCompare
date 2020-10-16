@@ -11,9 +11,9 @@
         item_type,
         is_available,
         price,
+        price_pure,
         currency,
-        url,
-        image_ref
+        url
         )
         values(
         default,
@@ -22,14 +22,15 @@
         #{item_type},
         #{is_available},
         #{price},
+        #{price_pure},
         #{currency},
-        #{url},
-        #{image_ref}
+        #{url}
         )
         ON CONFLICT (url)
         DO
         UPDATE SET
-        price = excluded.price;
+        price = excluded.price,
+        is_available = excluded.is_available;
     </insert>
 
 
@@ -124,5 +125,46 @@
         where store_id = #{id} ;
     </select>
 
+    <update id="updateItemNames">
+        update items
+        set item_name = right(item_name , length(item_name) - 4 )
+        where item_name like 'CPU %';
+        update items
+        set item_name = right(item_name , length(item_name) - 5 )
+        where item_name like 'Case %';
+        update items
+        set item_name = right(item_name , length(item_name) - 4 )
+        where item_name like 'Fan %';
+        update items
+        set item_name = right(item_name , length(item_name) - 12 )
+        where item_name like 'Desktop Ram %';
+        update items
+        set item_name = right(item_name , length(item_name) - 12 )
+        where item_name like 'MotherBoard %';
+        update items
+        set item_name = right(item_name , length(item_name) - 13 )
+        where item_name like 'Power Supply %';
+        update items
+        set item_name = right(item_name , length(item_name) - 9 )
+        where item_name like '2.5” HDD %';
+        update items
+        set item_name = right(item_name , length(item_name) - 21 )
+        where item_name like '2.5” Hard Disk Drive %';
+        update items
+        set item_name = right(item_name , length(item_name) - 9 )
+        where item_name like '2.5” SSD %';
+        update items
+        set item_name = right(item_name , length(item_name) - 23 )
+        where item_name like '2.5” Solid State Drive %';
+        update items
+        set item_name = right(item_name , length(item_name) - 4 )
+        where item_name like 'GPU %';
+        update items
+        set item_name = right(item_name , length(item_name) - 13 )
+        where item_name like 'Graphic Card %';
+        update items
+        set item_name = right(item_name , length(item_name) - 4 )
+        where item_name like 'VGA %';
+    </update>
 
 </mapper>

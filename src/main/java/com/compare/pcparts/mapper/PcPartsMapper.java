@@ -31,4 +31,6 @@ public interface PcPartsMapper
     List<StoreXPathItem> getStoreXPath(int id);
     List<StoreUrlItem> getStoreUrl(int id);
 
+    void updateItemNames();
+
 }

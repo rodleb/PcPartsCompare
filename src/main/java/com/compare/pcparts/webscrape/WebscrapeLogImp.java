@@ -29,16 +29,12 @@ public class WebscrapeLogImp implements WebscrapeLog
 
 	WebClient client = new WebClient();
 
-	private List<StoreItem> storeItemList;
-	private List<StoreUrlItem> storeUrlItemsList;
-	private List<StoreXPathItem> storeXPathItemsList;
-
 	public void getStore() throws IOException
 	{
 		List<Integer> storeIdList = new ArrayList<Integer>();
 		List<String> storeNameList = new ArrayList<String>();
 
-		storeItemList = pcPartsMapper.getStoreInfo();
+		List<StoreItem> storeItemList = pcPartsMapper.getStoreInfo();
 
 		for(StoreItem item : storeItemList)
 		{
@@ -46,8 +42,8 @@ public class WebscrapeLogImp implements WebscrapeLog
 			storeNameList.add(item.getStore_name());
 
 			log.info("Id: " + storeIdList + " Name: " + storeNameList);
-			storeUrlItemsList = pcPartsMapper.getStoreUrl(item.getId());
-			storeXPathItemsList = pcPartsMapper.getStoreXPath(item.getId());
+			List<StoreUrlItem> storeUrlItemsList = pcPartsMapper.getStoreUrl(item.getId());
+			List<StoreXPathItem> storeXPathItemsList = pcPartsMapper.getStoreXPath(item.getId());
 			for(StoreUrlItem urlItem : storeUrlItemsList)
 			{
 				for(StoreXPathItem xPathItem : storeXPathItemsList)
@@ -59,7 +55,9 @@ public class WebscrapeLogImp implements WebscrapeLog
 				}
 			}
 		}
+		pcPartsMapper.updateItemNames();
 	}
+
 
 
 	private void ScrappingPcParts(int storeId, String partType, String url, String xPath, String nameXpath, String priceXpath, String urlXpath,
@@ -72,20 +70,22 @@ public class WebscrapeLogImp implements WebscrapeLog
 
 		HtmlPage page = client.getPage(url);
 
-		//List<HtmlDivision> items = page.getByXPath("//div[@class='product-small box ']");
 		List<HtmlDivision> items = page.getByXPath(xPath);
 
 		log.info("Items Size: " + items.size());
 		HtmlElement productName;
 		HtmlElement productPrice;
 		HtmlAnchor productUrl;
+
 		HtmlElement altProduct;
 		HtmlElement altProduct2;
-		HtmlElement altProduct3;
+		HtmlAnchor altProduct3;
 
 		String itemName;
 		String itemPrice;
 		String itemUrl;
+
+		float itemPurePrice;
 
 		for(HtmlElement element : items)
 		{
@@ -95,20 +95,26 @@ public class WebscrapeLogImp implements WebscrapeLog
 			String currency = "LBP";
 
 			Boolean isAvailable;
-			/*
-			productName = element.getFirstByXPath(".//p[@class='name product-title woocommerce-loop-product__title']/a[@href]");
-			productPrice = element.getFirstByXPath(".//span[@class='woocommerce-Price-amount amount']");
-			productUrl = element.getFirstByXPath(".//p[@class='name product-title woocommerce-loop-product__title']/a");
 
-			 */
 			productName = element.getFirstByXPath(nameXpath);
 			productPrice = element.getFirstByXPath(priceXpath);
 			productUrl = element.getFirstByXPath(urlXpath);
 
 			NumberFormat format = NumberFormat.getCurrencyInstance();
 
-			//Todo: add nested try catch after this
-			itemName = productName.getVisibleText();
+			try
+			{
+				itemName = productName.getVisibleText();
+
+			}catch( NullPointerException ne){
+				try
+				{
+					altProduct2 = element.getFirstByXPath(altXpath2);
+					itemName = altProduct2.getVisibleText();
+				}catch(Exception e){
+					log.error("Something went wrong at the AltPath 2. Check the Xpath.\nException at: " + e);
+				}
+			}
 
 			try
 			{
@@ -120,15 +126,12 @@ public class WebscrapeLogImp implements WebscrapeLog
 				log.warn("Trying 2nd option");
 				try
 				{
-					//altProduct = element.getFirstByXPath(".//span[@class='price']");
 					altProduct = element.getFirstByXPath(altXpath1);
 					itemPrice = altProduct.getVisibleText();
-					//log.info("alt xpath "+altXpath1+" alt product "+altProduct+" price: "+itemPrice );
-
 				}
 				catch(Exception e)
 				{
-					log.error("Something went wrong. Check the Xpath.\nException at: " + e);
+					log.error("Something went wrong at AltPath 1. Check the Xpath.\nException at: " + e);
 				}
 			}
 
@@ -136,24 +139,42 @@ public class WebscrapeLogImp implements WebscrapeLog
 			if(itemPrice.equals("Out Of Stock"))
 			{
 				isAvailable = false;
+				itemPurePrice = 0;
+
 			}else {
 				isAvailable = true;
+				String itemPurePriceStr = itemPrice.replaceAll("[^0-9]", "");
+				itemPurePrice = Float.parseFloat(itemPurePriceStr);
 			}
 
 			//Todo: add nested try catch after this
-			itemUrl = productUrl.getHrefAttribute();
+			try
+			{
+				itemUrl = productUrl.getHrefAttribute();
+
+			}catch( NullPointerException ne){
+				try
+				{
+					altProduct3 = element.getFirstByXPath(altXpath3);
+					itemUrl = altProduct3.getHrefAttribute();
+				}catch(Exception e){
+					log.error("Something went wrong at the AltPath 2. Check the Xpath.\nException at: " + e);
+				}
+			}
+
 
 			String description = ("Product Name: " + itemName + "\nProduct Price: " + itemPrice + "\nURL: " + itemUrl + "\nCurrency: " + currency +
 					"\nIs Available: "+isAvailable+"\n");
 			log.info(description);
-			AddToItem(storeId, itemName, partType, currency, itemPrice, itemUrl, isAvailable);
+			AddToItem(storeId, itemName, partType, currency, itemPrice, itemPurePrice , itemUrl, isAvailable);
 		}
 	}
 
-	private void AddToItem(int storeId, String itemName, String partType,String currency , String itemPrice, String itemUrl, Boolean isAvailable)
+	private void AddToItem(int storeId, String itemName, String partType, String currency , String itemPrice, Float itemPurePrice , String itemUrl, Boolean isAvailable)
 	{
 		pcPartsItem.setItem_name(itemName);
 		pcPartsItem.setPrice(itemPrice);
+		pcPartsItem.setPrice_pure(itemPurePrice);
 		pcPartsItem.setItem_type(partType);
 		pcPartsItem.setCurrency(currency);
 		pcPartsItem.set_available(isAvailable);

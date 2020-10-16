@@ -16,16 +16,16 @@ operatingHoursWeekendClosingPeriod: PM
 currency: $
 pricesIncludingVAT: false
 vatPercent: 11
-contactAddress:
-contactEmail:
+contactAddress: New Rawda – Cabella St. Georges Street – Beirut, Lebanon
+contactEmail: sales@mojitech.net  |  support@mojitech.net
 contactNumber1: 009613417443
 contactNumber2: 009611693444
 contactNumber3:
-Xpath: //div[@class='product-small box ']
-productNameXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a[@href]
-productPriceXpath: .//span[@class='woocommerce-Price-amount amount']
-productUrlXpath: .//p[@class='name product-title woocommerce-loop-product__title']/a
-productAltXpath1: .//span[@class='price']
+Xpath: //div[@class='item-info']
+productNameXpath: .//div[@class='item-title']/a[@href]
+productPriceXpath: .//span[@class='woocs_price_code']
+productUrlXpath: .//div[@class='item-title']/a
+productAltXpath1: .//span[@class='woocommerce-Price-amount amount']
 productAltXpath2:
 productAltXpath3:
 cpuUrl:

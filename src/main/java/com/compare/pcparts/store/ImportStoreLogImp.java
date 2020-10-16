@@ -85,6 +85,9 @@ public class ImportStoreLogImp implements ImportStoreLog
 		List<String> psu_url = config.getPsuUrl();
 		List<String> storage_url = config.getStorageUrl();
 		List<String> graphics_card_url = config.getGraphiccardUrl();
+		List<String> laptop_url = config.getLaptopUrl();
+		List<String> accessories_url = config.getAccessoriesUrl();
+
 		for(String element : cpu_url){
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPage_url(element);
@@ -133,6 +136,21 @@ public class ImportStoreLogImp implements ImportStoreLog
 			storeUrlItem.setPage_url(element);
 			pcPartsMapper.insertStoreItemsUrl(storeUrlItem);
 		}
+
+		for(String element : laptop_url){
+			storeUrlItem.setStore_id(storeId);
+			storeUrlItem.setPart_name("laptop");
+			storeUrlItem.setPage_url(element);
+			pcPartsMapper.insertStoreItemsUrl(storeUrlItem);
+		}
+
+		for(String element : accessories_url){
+			storeUrlItem.setStore_id(storeId);
+			storeUrlItem.setPart_name("accessories");
+			storeUrlItem.setPage_url(element);
+			pcPartsMapper.insertStoreItemsUrl(storeUrlItem);
+		}
+
 		log.info("Import URL finished.");
 	}
 
