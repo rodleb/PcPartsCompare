@@ -8,10 +8,7 @@ import com.compare.pcparts.webscrape.WebscrapeLogImp;
 import lombok.extern.log4j.Log4j2;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -63,7 +60,7 @@ public class Controller
 		return "Store have been Imported Successfully";
 	}
 
-	@GetMapping("/getitem")
+	@GetMapping("/results")
 	@ResponseBody
 	public List getItem(@RequestParam String keyword, String itemType, String itemBrand, Float minPrice, Float maxPrice)
 			throws UnsupportedEncodingException
@@ -78,4 +75,16 @@ public class Controller
 		//maybe return something here
 
 	}
+//TODO: we can use this to make the page open for category item types
+	@GetMapping(value="/category/{itemType}")
+	public String method7(@PathVariable("itemType") String itemType){
+		return "item type ="+itemType;
+	}
+//TODO: we can use this to make the url go back to homepage
+	@RequestMapping("*")
+	@ResponseBody
+	public String fallbackMethod(){
+		return "fallback method";
+	}
+
 }
