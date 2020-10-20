@@ -167,4 +167,27 @@
         where item_name like 'VGA %';
     </update>
 
+    <select id="searchItemDB" resultType="com.compare.pcparts.webscrape.PcPartsItem">
+        <bind name="keyword" value="'%' + _parameter.getKeyword() + '%'" />
+        <bind name="itemType" value="'%' + _parameter.getItemType() + '%'" />
+        <!--bind name="itemBrand" value="'%' + _parameter.getItemBrand() + '%'" /!-->
+        select * from items where id >=1 and item_name ilike #{keyword}
+        <choose>
+            <when test="keyword != null">
+                and item_name ilike #{keyword}
+            </when>
+            <when test="itemType != null">
+                and item_type ilike #{itemType}
+            </when>
+            <!--
+            <when test="itemBrand != null">
+                and item_brand ilike #{itemBrand}
+            </when>
+
+            <when test="minPrice != null">
+                and price_pure between #{minprice} and #{maxPrice}
+            </when> !-->
+        </choose>
+    </select>
+
 </mapper>

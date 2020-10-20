@@ -1,5 +1,6 @@
 package com.compare.pcparts.mapper;
 
+import com.compare.pcparts.search.SearchItem;
 import com.compare.pcparts.webscrape.PcPartsItem;
 
 import com.compare.pcparts.store.items.StoreContactDetailItem;
@@ -32,5 +33,7 @@ public interface PcPartsMapper
     List<StoreUrlItem> getStoreUrl(int id);
 
     void updateItemNames();
+
+    List<PcPartsItem> searchItemDB(SearchItem searchItem);
 
 }
