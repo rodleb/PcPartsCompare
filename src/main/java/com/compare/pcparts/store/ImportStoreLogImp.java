@@ -77,8 +77,10 @@ public class ImportStoreLogImp implements ImportStoreLog
 	@Override
 	public void importStoreItemsUrl()
 	{
+		log.info("Entering import store url....");
 		int storeId = config.getId();
 		List<String> cpu_url = config.getCpuUrl();
+		List<String> motherboard_url = config.getMotherboardUrl();
 		List<String> computer_case_url = config.getComputercaseUrl();
 		List<String> cooling_fan_url = config.getCoolingfanUrl();
 		List<String> memory_url = config.getMemoryUrl();
@@ -89,13 +91,23 @@ public class ImportStoreLogImp implements ImportStoreLog
 		List<String> accessories_url = config.getAccessoriesUrl();
 
 		for(String element : cpu_url){
+			log.info("Entering import store url.... cpu");
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPage_url(element);
 			storeUrlItem.setPart_name("cpu");
 			pcPartsMapper.insertStoreItemsUrl(storeUrlItem);
 		}
 
+		for(String element : motherboard_url){
+			log.info("Entering import store url....mobo");
+			storeUrlItem.setStore_id(storeId);
+			storeUrlItem.setPage_url(element);
+			storeUrlItem.setPart_name("motherboard");
+			pcPartsMapper.insertStoreItemsUrl(storeUrlItem);
+		}
+
 		for(String element : computer_case_url){
+			log.info("Entering import store url....cc");
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPart_name("computer_case");
 			storeUrlItem.setPage_url(element);
@@ -103,6 +115,7 @@ public class ImportStoreLogImp implements ImportStoreLog
 		}
 
 		for(String element : cooling_fan_url){
+			log.info("Entering import store url....cf");
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPart_name("cooling_fan");
 			storeUrlItem.setPage_url(element);
@@ -110,6 +123,7 @@ public class ImportStoreLogImp implements ImportStoreLog
 		}
 
 		for(String element : memory_url){
+			log.info("Entering import store url....mem");
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPart_name("memory");
 			storeUrlItem.setPage_url(element);
@@ -117,6 +131,7 @@ public class ImportStoreLogImp implements ImportStoreLog
 		}
 
 		for(String element : psu_url){
+			log.info("Entering import store url....psu");
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPart_name("psu");
 			storeUrlItem.setPage_url(element);
@@ -124,6 +139,7 @@ public class ImportStoreLogImp implements ImportStoreLog
 		}
 
 		for(String element : storage_url){
+			log.info("Entering import store url....str");
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPart_name("storage");
 			storeUrlItem.setPage_url(element);
@@ -131,6 +147,7 @@ public class ImportStoreLogImp implements ImportStoreLog
 		}
 
 		for(String element : graphics_card_url){
+			log.info("Entering import store url....gpu");
 			storeUrlItem.setStore_id(storeId);
 			storeUrlItem.setPart_name("graphics_card");
 			storeUrlItem.setPage_url(element);

@@ -1,0 +1,119 @@
+
+create TABLE cpu (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE graphics_card (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE memory (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE motherboard (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE power_supply_unit (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE storage (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE cooling_fan (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE computer_cases (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+create TABLE accessories (
+    id SERIAL PRIMARY KEY ,
+    item_name char(300) NOT NULL ,
+    store_id int not null,
+    is_available bool default true,
+    price varchar(500),
+    currency varchar(10),
+    url varchar(500) unique not null,
+    is_new bool default true,
+    image_ref varchar(500),
+    foreign key (store_id) references store(id)
+);
+
+

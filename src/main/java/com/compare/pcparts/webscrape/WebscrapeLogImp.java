@@ -7,15 +7,18 @@ import com.compare.pcparts.store.items.StoreXPathItem;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
 
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 @Log4j2
 @Component
@@ -58,8 +61,6 @@ public class WebscrapeLogImp implements WebscrapeLog
 		pcPartsMapper.updateItemNames();
 	}
 
-
-
 	private void ScrappingPcParts(int storeId, String partType, String url, String xPath, String nameXpath, String priceXpath, String urlXpath,
 			String altXpath1, String altXpath2, String altXpath3) throws IOException
 	{
@@ -67,110 +68,163 @@ public class WebscrapeLogImp implements WebscrapeLog
 		client.getOptions().setJavaScriptEnabled(false);
 		client.getOptions().setCssEnabled(false);
 		client.getOptions().setUseInsecureSSL(true);
-
-		HtmlPage page = client.getPage(url);
-
-		List<HtmlDivision> items = page.getByXPath(xPath);
-
-		log.info("Items Size: " + items.size());
-		HtmlElement productName;
-		HtmlElement productPrice;
-		HtmlAnchor productUrl;
-
-		HtmlElement altProduct;
-		HtmlElement altProduct2;
-		HtmlAnchor altProduct3;
-
-		String itemName;
-		String itemPrice;
-		String itemUrl;
-
-		float itemPurePrice;
-
-		for(HtmlElement element : items)
+		try
 		{
-			itemName = null;
-			itemPrice = null;
-			itemUrl = null;
-			String currency = "LBP";
+			HtmlPage page = client.getPage(url);
+			List<HtmlDivision> items = page.getByXPath(xPath);
+			log.info("Items Size: " + items.size());
 
-			Boolean isAvailable;
+			HtmlElement productName;
+			HtmlElement productPrice;
+			HtmlAnchor productUrl;
 
-			productName = element.getFirstByXPath(nameXpath);
-			productPrice = element.getFirstByXPath(priceXpath);
-			productUrl = element.getFirstByXPath(urlXpath);
+			HtmlElement altProduct;
+			HtmlElement altProduct2;
+			HtmlAnchor altProduct3;
 
-			NumberFormat format = NumberFormat.getCurrencyInstance();
+			String itemName;
+			String itemPrice;
+			String itemUrl;
 
-			try
+			float itemPurePrice;
+
+			for(HtmlElement element : items)
 			{
-				itemName = productName.getVisibleText();
+				itemName = null;
+				itemPrice = null;
+				itemUrl = null;
+				String currency = "LBP";
 
-			}catch( NullPointerException ne){
+				Boolean isAvailable;
+
+				productName = element.getFirstByXPath(nameXpath);
+				productPrice = element.getFirstByXPath(priceXpath);
+				productUrl = element.getFirstByXPath(urlXpath);
+
+				NumberFormat format = NumberFormat.getCurrencyInstance();
+
 				try
 				{
-					altProduct2 = element.getFirstByXPath(altXpath2);
-					itemName = altProduct2.getVisibleText();
-				}catch(Exception e){
-					log.error("Something went wrong at the AltPath 2. Check the Xpath.\nException at: " + e);
-				}
-			}
+					itemName = productName.getVisibleText();
 
-			try
-			{
-				itemPrice = productPrice.getVisibleText();
-				currency = format.getCurrency().getSymbol();
-			}
-			catch(NullPointerException ne)
-			{
-				log.warn("Trying 2nd option");
+				}
+				catch(NullPointerException ne)
+				{
+					try
+					{
+						altProduct2 = element.getFirstByXPath(altXpath2);
+						itemName = altProduct2.getVisibleText();
+					}
+					catch(Exception e)
+					{
+						log.error("Something went wrong at the AltPath 2. Check the Xpath.\nException at: " + e);
+					}
+				}
+
+
 				try
 				{
-					altProduct = element.getFirstByXPath(altXpath1);
-					itemPrice = altProduct.getVisibleText();
+
+					currency = format.getCurrency().getSymbol();
+					itemPrice = productPrice.getVisibleText();
+					log.info("Price 1st try xpath1 is " + itemPrice);
 				}
-				catch(Exception e)
+				catch(NullPointerException ne)
 				{
-					log.error("Something went wrong at AltPath 1. Check the Xpath.\nException at: " + e);
+					log.warn("Trying 2nd option");
+					try
+					{
+						altProduct = element.getFirstByXPath(altXpath1);
+						itemPrice = altProduct.getVisibleText();
+						log.info("Price 2nd try alt xpath is " + itemPrice);
+
+					}
+					catch(NullPointerException nee)
+					{
+						log.warn("Trying 3rd option");
+						try
+						{
+							altProduct = element.getFirstByXPath(altXpath2);
+							itemPrice = altProduct.getVisibleText();
+							log.info("Price 3rd try alt xpath 2 is " + itemPrice);
+
+						}
+						catch(Exception e)
+						{
+							log.error("Something went wrong at AltPath 1. Check the Xpath.\nException at: " + e);
+
+						}
+					}
 				}
-			}
 
+				if(itemPrice.equals("Out Of Stock"))
+				{
+					isAvailable = false;
 
-			if(itemPrice.equals("Out Of Stock"))
-			{
-				isAvailable = false;
-				itemPurePrice = 0;
+				}
+				else
+				{
+					isAvailable = true;
+				}
 
-			}else {
-				isAvailable = true;
-				String itemPurePriceStr = itemPrice.replaceAll("[^0-9]", "");
-				itemPurePrice = Float.parseFloat(itemPurePriceStr);
-			}
+				String itemPurePriceStr = itemPrice.replaceAll("[^0-9.]", "");
+				itemPurePriceStr = itemPurePriceStr.replace("$", "");
+				log.info("Price at start is: " + itemPurePriceStr);
 
-			//Todo: add nested try catch after this
-			try
-			{
-				itemUrl = productUrl.getHrefAttribute();
+				if(itemPurePriceStr.isEmpty())
+				{
+					itemPurePrice = 0;
+				}
+				else
+				{
+					try
+					{
+						log.warn("Real price String before update: "+itemPurePriceStr);
+						itemPurePrice = Float.parseFloat(itemPurePriceStr);
+						log.warn("Real price Float after update: "+itemPurePriceStr);
 
-			}catch( NullPointerException ne){
+					}
+					catch(NumberFormatException ne)
+					{
+						log.warn("Warning wrong input, with exception: " + ne);
+						itemPurePrice = 0;
+					}
+
+				}
+
 				try
 				{
-					altProduct3 = element.getFirstByXPath(altXpath3);
-					itemUrl = altProduct3.getHrefAttribute();
-				}catch(Exception e){
-					log.error("Something went wrong at the AltPath 2. Check the Xpath.\nException at: " + e);
+					itemUrl = productUrl.getHrefAttribute();
+
 				}
+				catch(NullPointerException ne)
+				{
+					try
+					{
+						altProduct3 = element.getFirstByXPath(altXpath3);
+						itemUrl = altProduct3.getHrefAttribute();
+					}
+					catch(Exception e)
+					{
+						log.error("Something went wrong at the AltPath 3. Check the Xpath.\nException at: " + e);
+					}
+				}
+
+				String description = ("Product Name: " + itemName + "\nProduct Price: " + itemPrice + "\nURL: " + itemUrl + "\nCurrency: " +
+						currency + "\nIs Available: " + isAvailable + "\nReal price: " + itemPurePrice + "\n");
+				log.info(description);
+				AddToItem(storeId, itemName, partType, currency, itemPrice, itemPurePrice, itemUrl, isAvailable);
 			}
+		}
+		catch(MalformedURLException me)
+		{
 
-
-			String description = ("Product Name: " + itemName + "\nProduct Price: " + itemPrice + "\nURL: " + itemUrl + "\nCurrency: " + currency +
-					"\nIs Available: "+isAvailable+"\n");
-			log.info(description);
-			AddToItem(storeId, itemName, partType, currency, itemPrice, itemPurePrice , itemUrl, isAvailable);
+			log.error("Error for url: " + url + "\nException: " + me);
 		}
 	}
 
-	private void AddToItem(int storeId, String itemName, String partType, String currency , String itemPrice, Float itemPurePrice , String itemUrl, Boolean isAvailable)
+	private void AddToItem(int storeId, String itemName, String partType, String currency, String itemPrice, Float itemPurePrice, String itemUrl,
+			Boolean isAvailable)
 	{
 		pcPartsItem.setItem_name(itemName);
 		pcPartsItem.setPrice(itemPrice);

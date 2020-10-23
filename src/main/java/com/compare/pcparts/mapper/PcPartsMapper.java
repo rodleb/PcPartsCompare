@@ -33,6 +33,7 @@ public interface PcPartsMapper
     List<StoreUrlItem> getStoreUrl(int id);
 
     void updateItemNames();
+    void updateBrand();
 
     List<PcPartsItem> searchItemDB(SearchItem searchItem);
 

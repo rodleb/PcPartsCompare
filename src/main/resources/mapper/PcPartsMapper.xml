@@ -30,16 +30,10 @@
         DO
         UPDATE SET
         price = excluded.price,
-        is_available = excluded.is_available;
+        is_available = excluded.is_available,
+        price_pure = excluded.price_pure
+        WHERE not_updatable = false;
     </insert>
-
-
-
-    <select id="getAllCpu" resultType="com.compare.pcparts.webscrape.PcPartsItem">
-        SELECT *
-        FROM cpu;
-    </select>
-
 
 
     <insert id="insertStore">
@@ -52,7 +46,10 @@
         #{currency},
         #{prices_including_vat},
         #{vat_percent}
-        );
+        )  ON CONFLICT (store_name, id)
+        DO
+        UPDATE SET
+        url = excluded.url;
     </insert>
     <insert id="insertStoreContactDetail">
         insert into store_contact_detail
@@ -64,7 +61,15 @@
         #{contact_number_1},
         #{contact_number_2},
         #{contact_number_3}
-        );
+        )
+        ON CONFLICT (store_id)
+        DO
+        UPDATE SET
+        contact_address = exclude.contact_address,
+        contact_email = exclude.contact_email,
+        contact_number_1 = exclude.contact_number_1,
+        contact_number_2 = exclude.contact_number_2,
+        contact_number_3 = exclude.contact_number_3;
     </insert>
     <insert id="insertStoreOperatingTime">
         insert into store_operating_time
@@ -74,7 +79,13 @@
         #{operating_hours_weekdays},
         #{operating_hours_weekend},
         #{operating_days}
-        );
+        )
+        ON CONFLICT (store_id)
+        DO
+        UPDATE SET
+        operating_hours_weekdays = excluded.operating_hours_weekdays,
+        operating_hours_weekend = excluded.operating_hours_weekend,
+        operating_day = excluded.operating_day;
     </insert>
     <insert id="insertStoreXPath">
         insert into store_xpath
@@ -88,7 +99,17 @@
         #{alt_xpath_1},
         #{alt_xpath_2},
         #{alt_xpath_3}
-        );
+        )
+        ON CONFLICT (store_id)
+        DO
+        UPDATE SET
+        xpath = excluded.xpath
+        product_name_xpath = excluded.product_name_xpath,
+        product_price_xpath = excluded.product_price_xpath,
+        product_url_xpath = excluded.product_url_xpath,
+        alt_xpath_1 = excluded.alt_xpath_1,
+        alt_xpath_2 = excluded.alt_xpath_2,
+        alt_xpath_3 = excluded.alt_xpath_3;
     </insert>
     <insert id="insertStoreItemsUrl">
         insert into store_items_url
@@ -97,8 +118,20 @@
         #{store_id},
         #{part_name},
         #{page_url}
-        );
+        )
+        ON CONFLICT (store_id)
+        DO
+        UPDATE SET
+        part_name = excluded.part_name,
+        page_url = excluded.page_url;
     </insert>
+
+
+
+    <select id="getAllCpu" resultType="com.compare.pcparts.webscrape.PcPartsItem">
+        SELECT *
+        FROM cpu;
+    </select>
 
 
 
@@ -166,27 +199,42 @@
         set item_name = right(item_name , length(item_name) - 4 )
         where item_name like 'VGA %';
     </update>
+    <update id="updateBrand">
+        update items
+        set item_brand = substr(item_name, 1, position(' 'in item_name))
+        where id>=1;
+    </update>
 
-    <select id="searchItemDB" resultType="com.compare.pcparts.webscrape.PcPartsItem">
-        <bind name="keyword" value="'%' + _parameter.getKeyword() + '%'" />
-        <bind name="itemType" value="'%' + _parameter.getItemType() + '%'" />
-        <!--bind name="itemBrand" value="'%' + _parameter.getItemBrand() + '%'" /!-->
-        select * from items where id >=1 and item_name ilike #{keyword}
+    <select id="searchItemDB" parameterType = "com.compare.pcparts.search.SearchItem" resultType="com.compare.pcparts.webscrape.PcPartsItem">
+        select id, item_name, price, price_pure, url    from items where id >=1
         <choose>
             <when test="keyword != null">
+                <bind name="keyword" value="'%' + _parameter.getKeyword() + '%'" />
                 and item_name ilike #{keyword}
             </when>
+            <otherwise>
+                <bind name="keyword" value="'%%'" />
+                and item_name ilike #{keyword}
+            </otherwise>
+        </choose>
+        <choose>
             <when test="itemType != null">
-                and item_type ilike #{itemType}
+                and item_type = #{itemType}
             </when>
-            <!--
+            <otherwise>
+                ;
+            </otherwise>
+        </choose>
+        <choose>
             <when test="itemBrand != null">
-                and item_brand ilike #{itemBrand}
+                and item_brand = #{itemBrand}
             </when>
-
             <when test="minPrice != null">
                 and price_pure between #{minprice} and #{maxPrice}
-            </when> !-->
+            </when>
+            <otherwise>
+                ;
+            </otherwise>
         </choose>
     </select>
 

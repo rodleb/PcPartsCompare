@@ -1,5 +1,5 @@
 #Website info to import
-id: 2
+id: 1
 name: Mojitech
 url: https://mojitech.net/
 imageRef:
@@ -23,57 +23,61 @@ contactNumber2: 009611693444
 contactNumber3:
 Xpath: //div[@class='item-info']
 productNameXpath: .//div[@class='item-title']/a[@href]
-productPriceXpath: .//span[@class='woocs_price_code']
+productPriceXpath: .//span[@class='woocs_price_code']/ins
 productUrlXpath: .//div[@class='item-title']/a
 productAltXpath1: .//span[@class='woocommerce-Price-amount amount']
 productAltXpath2:
 productAltXpath3:
 cpuUrl:
-  - https://mojitech.net/product-category/pc-parts/cpus/
-  - https://mojitech.net/product-category/pc-parts/cpus/page/2/
+  - https://mojitech.net/product-category/pc-parts/cpus/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/cpus/page/2/?currency=USD
 computercaseUrl:
-  - https://mojitech.net/product-category/pc-parts/computer-cases/
-  - https://mojitech.net/product-category/pc-parts/computer-cases/page/2/
-  - https://mojitech.net/product-category/pc-parts/computer-cases/page/3/
-  - https://mojitech.net/product-category/pc-parts/computer-cases/page/4/
-  - https://mojitech.net/product-category/pc-parts/computer-cases/page/5/
-  - https://mojitech.net/product-category/pc-parts/computer-cases/page/6/
+  - https://mojitech.net/product-category/pc-parts/computer-cases/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/2/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/3/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/4/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/5/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/computer-cases/page/6/?currency=USD
 coolingfanUrl:
-  - https://mojitech.net/product-category/pc-parts/cooling/
-  - https://mojitech.net/product-category/pc-parts/cooling/page/2/
-  - https://mojitech.net/product-category/pc-parts/cooling/page/3/
-  - https://mojitech.net/product-category/pc-parts/cooling/page/4/
-  - https://mojitech.net/product-category/pc-parts/cooling/page/5/
+  - https://mojitech.net/product-category/pc-parts/cooling/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/cooling/page/2/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/cooling/page/3/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/cooling/page/4/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/cooling/page/5/?currency=USD
 memoryUrl:
-  - https://mojitech.net/product-category/pc-parts/memory/
-  - https://mojitech.net/product-category/pc-parts/memory/page/2/
-  - https://mojitech.net/product-category/pc-parts/memory/page/3/
-  - https://mojitech.net/product-category/pc-parts/memory/page/4/
-  - https://mojitech.net/product-category/pc-parts/memory/page/5/
+  - https://mojitech.net/product-category/pc-parts/memory/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/memory/page/2/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/memory/page/3/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/memory/page/4/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/memory/page/5/?currency=USD
 motherboardUrl:
-  - https://mojitech.net/product-category/pc-parts/motherboards/
-  - https://mojitech.net/product-category/pc-parts/motherboards/page/2/
-  - https://mojitech.net/product-category/pc-parts/motherboards/page/3/
-  - https://mojitech.net/product-category/pc-parts/motherboards/page/4/
-  - https://mojitech.net/product-category/pc-parts/motherboards/page/5/
+  - https://mojitech.net/product-category/pc-parts/motherboards/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/2/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/3/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/4/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/motherboards/page/5/?currency=USD
 psuUrl:
-  - https://mojitech.net/product-category/pc-parts/power-supplies/
-  - https://mojitech.net/product-category/pc-parts/power-supplies/page/2/
-  - https://mojitech.net/product-category/pc-parts/power-supplies/page/3/
-  - https://mojitech.net/product-category/pc-parts/power-supplies/page/4/
+  - https://mojitech.net/product-category/pc-parts/power-supplies/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/power-supplies/page/2/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/power-supplies/page/3/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/power-supplies/page/4/?currency=USD
 storageUrl:
-  - https://mojitech.net/product-category/pc-parts/storage/
-  - https://mojitech.net/product-category/pc-parts/storage/page/2/
-  - https://mojitech.net/product-category/pc-parts/storage/page/3/
-  - https://mojitech.net/product-category/pc-parts/storage/page/4/
-  - https://mojitech.net/product-category/pc-parts/storage/page/5/
-  - https://mojitech.net/product-category/pc-parts/storage/page/6/
-  - https://mojitech.net/product-category/pc-parts/storage/page/7/
+  - https://mojitech.net/product-category/pc-parts/storage/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/storage/page/2/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/storage/page/3/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/storage/page/4/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/storage/page/5/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/storage/page/6/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/storage/page/7/?currency=USD
 graphiccardUrl:
-  - https://mojitech.net/product-category/pc-parts/video-cards/
-  - https://mojitech.net/product-category/pc-parts/video-cards/page/2/
-  - https://mojitech.net/product-category/pc-parts/video-cards/page/3/
-  - https://mojitech.net/product-category/pc-parts/video-cards/page/4/
-  - https://mojitech.net/product-category/pc-parts/video-cards/page/5/
-  - https://mojitech.net/product-category/pc-parts/video-cards/page/6/
-  - https://mojitech.net/product-category/pc-parts/video-cards/page/7/
+  - https://mojitech.net/product-category/pc-parts/video-cards/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/2/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/3/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/4/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/5/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/6/?currency=USD
+  - https://mojitech.net/product-category/pc-parts/video-cards/page/7/?currency=USD
+laptopUrl:
+  -
+accessoriesUrl:
+  -
