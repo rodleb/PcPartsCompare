@@ -9,5 +9,5 @@ public interface SearchLog
 {
 public List<PcPartsItem> searchFunction(String keyword, String itemType, String itemBrand, float minPrice, float maxPrice);
 public List<PcPartsItem> searchMapFunction(Map<String,String> allParams);
-
+public List<PcPartsItem> searchItemType(String itemType);
 }

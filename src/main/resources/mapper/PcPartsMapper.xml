@@ -128,9 +128,9 @@
 
 
 
-    <select id="getAllCpu" resultType="com.compare.pcparts.webscrape.PcPartsItem">
+    <select id="searchItemTypeDB" resultType="com.compare.pcparts.webscrape.PcPartsItem">
         SELECT *
-        FROM cpu;
+        FROM items where item_type = #{itemType};
     </select>
 
 

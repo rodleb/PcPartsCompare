@@ -97,4 +97,10 @@ public class SearchLogImpl implements SearchLog
 		log.info("Keyword: "+searchItem.getKeyword()+" ItemType: "+searchItem.getItemType());
 		return pcPartsMapper.searchItemDB(searchItem);
 	}
+
+	@Override
+	public List<PcPartsItem> searchItemType(String itemType)
+	{
+		return pcPartsMapper.searchItemTypeDB(itemType);
+	}
 }

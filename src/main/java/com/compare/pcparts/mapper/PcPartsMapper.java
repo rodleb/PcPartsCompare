@@ -36,5 +36,5 @@ public interface PcPartsMapper
     void updateBrand();
 
     List<PcPartsItem> searchItemDB(SearchItem searchItem);
-
+    List<PcPartsItem> searchItemTypeDB(String itemType);
 }
