@@ -37,4 +37,6 @@ public interface PcPartsMapper
 
     List<PcPartsItem> searchItemDB(SearchItem searchItem);
     List<PcPartsItem> searchItemTypeDB(String itemType);
+    List<PcPartsItem> searchBrand(String itemBrand);
+
 }

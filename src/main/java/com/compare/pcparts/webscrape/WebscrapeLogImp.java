@@ -58,7 +58,6 @@ public class WebscrapeLogImp implements WebscrapeLog
 				}
 			}
 		}
-		pcPartsMapper.updateItemNames();
 	}
 
 	private void ScrappingPcParts(int storeId, String partType, String url, String xPath, String nameXpath, String priceXpath, String urlXpath,
@@ -151,7 +150,8 @@ public class WebscrapeLogImp implements WebscrapeLog
 						}
 						catch(Exception e)
 						{
-							log.error("Something went wrong at AltPath 1. Check the Xpath.\nException at: " + e);
+							log.error("Something went wrong at AltPath 1. Check the Xpath.\nExing to contact her rn" +
+									"ception at: " + e);
 
 						}
 					}
@@ -221,6 +221,7 @@ public class WebscrapeLogImp implements WebscrapeLog
 
 			log.error("Error for url: " + url + "\nException: " + me);
 		}
+		pcPartsMapper.updateItemNames();
 	}
 
 	private void AddToItem(int storeId, String itemName, String partType, String currency, String itemPrice, Float itemPurePrice, String itemUrl,

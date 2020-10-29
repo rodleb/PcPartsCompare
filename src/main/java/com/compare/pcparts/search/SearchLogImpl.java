@@ -103,4 +103,10 @@ public class SearchLogImpl implements SearchLog
 	{
 		return pcPartsMapper.searchItemTypeDB(itemType);
 	}
+
+	@Override
+	public List<PcPartsItem> searchBrands(String itemBrand)
+	{
+		return pcPartsMapper.searchBrand(itemBrand);
+	}
 }

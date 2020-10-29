@@ -1,5 +1,6 @@
 package com.compare.pcparts.controller;
 
+import com.compare.pcparts.mapper.PcPartsMapper;
 import com.compare.pcparts.search.SearchItem;
 import com.compare.pcparts.search.SearchLog;
 import com.compare.pcparts.store.ImportStoreLog;
@@ -25,13 +26,19 @@ public class Controller
 	SearchItem searchItem;
 	@Autowired
 	SearchLog searchLog;
-
-	//public Controller(WebscrapeLogImp webscrapeLog){this.webscrapeLog = webscrapeLog;}
+	@Autowired
+	PcPartsMapper pcPartsMapper;
 
 	@GetMapping("/webscrap")
 	public void WebScrapping() throws IOException
 	{
 		webscrapeLog.getStore();
+	}
+
+	@GetMapping("/brand/{itemBrand}")
+	public List<PcPartsItem> searchBrand(@PathVariable("itemBrand") String itemBrand) throws IOException
+	{
+		return searchLog.searchBrands(itemBrand);
 	}
 
 	@GetMapping("/importstore")
@@ -84,6 +91,12 @@ public class Controller
 	public String fallbackMethod()
 	{
 		return "fallback method";
+	}
+	//Todo: recommended to be removed
+	@GetMapping("/clean/name")
+	public String  cleanName(){
+		pcPartsMapper.updateItemNames();
+		return "Cleaned";
 	}
 
 }

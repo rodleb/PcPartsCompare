@@ -35,6 +35,9 @@
         WHERE not_updatable = false;
     </insert>
 
+    <update id="getBrandName">
+
+    </update>
 
     <insert id="insertStore">
         insert into store
@@ -46,7 +49,8 @@
         #{currency},
         #{prices_including_vat},
         #{vat_percent}
-        )  ON CONFLICT (store_name, id)
+        )
+        ON CONFLICT (store_name)
         DO
         UPDATE SET
         url = excluded.url;
@@ -65,11 +69,11 @@
         ON CONFLICT (store_id)
         DO
         UPDATE SET
-        contact_address = exclude.contact_address,
-        contact_email = exclude.contact_email,
-        contact_number_1 = exclude.contact_number_1,
-        contact_number_2 = exclude.contact_number_2,
-        contact_number_3 = exclude.contact_number_3;
+        contact_address = excluded.contact_address,
+        contact_email = excluded.contact_email,
+        contact_number_1 = excluded.contact_number_1,
+        contact_number_2 = excluded.contact_number_2,
+        contact_number_3 = excluded.contact_number_3;
     </insert>
     <insert id="insertStoreOperatingTime">
         insert into store_operating_time
@@ -85,7 +89,7 @@
         UPDATE SET
         operating_hours_weekdays = excluded.operating_hours_weekdays,
         operating_hours_weekend = excluded.operating_hours_weekend,
-        operating_day = excluded.operating_day;
+        operating_days = excluded.operating_days;
     </insert>
     <insert id="insertStoreXPath">
         insert into store_xpath
@@ -103,7 +107,7 @@
         ON CONFLICT (store_id)
         DO
         UPDATE SET
-        xpath = excluded.xpath
+        xpath = excluded.xpath,
         product_name_xpath = excluded.product_name_xpath,
         product_price_xpath = excluded.product_price_xpath,
         product_url_xpath = excluded.product_url_xpath,
@@ -118,86 +122,79 @@
         #{store_id},
         #{part_name},
         #{page_url}
-        )
-        ON CONFLICT (store_id)
-        DO
-        UPDATE SET
-        part_name = excluded.part_name,
-        page_url = excluded.page_url;
+        );
     </insert>
 
-
-
-    <select id="searchItemTypeDB" resultType="com.compare.pcparts.webscrape.PcPartsItem">
-        SELECT *
-        FROM items where item_type = #{itemType};
-    </select>
-
-
-
-    <select id="getStoreInfo" resultType="com.compare.pcparts.store.items.StoreItem">
-        SELECT *
-        FROM store;
-    </select>
-    <select id="getStoreContactInfo" resultType="com.compare.pcparts.store.items.StoreContactDetailItem">
-        SELECT *
-        FROM store_contact_detail;
-    </select>
-    <select id="getStoreOperatingTime" resultType="com.compare.pcparts.store.items.StoreOperatingTimeItem">
-        SELECT *
-        FROM store_operating_time;
-    </select>
-    <select id="getStoreXPath" resultType="com.compare.pcparts.store.items.StoreXPathItem">
-        select *
-        FROM store_xpath
-        where store_id = #{id};
-    </select>
-    <select id="getStoreUrl" resultType="com.compare.pcparts.store.items.StoreUrlItem">
-        SELECT *
-        FROM store_items_url
-        where store_id = #{id} ;
-    </select>
 
     <update id="updateItemNames">
         update items
         set item_name = right(item_name , length(item_name) - 4 )
         where item_name like 'CPU %';
+
         update items
         set item_name = right(item_name , length(item_name) - 5 )
         where item_name like 'Case %';
+
         update items
         set item_name = right(item_name , length(item_name) - 4 )
         where item_name like 'Fan %';
+
         update items
         set item_name = right(item_name , length(item_name) - 12 )
         where item_name like 'Desktop Ram %';
+
         update items
         set item_name = right(item_name , length(item_name) - 12 )
         where item_name like 'MotherBoard %';
+
         update items
         set item_name = right(item_name , length(item_name) - 13 )
         where item_name like 'Power Supply %';
+
         update items
-        set item_name = right(item_name , length(item_name) - 9 )
-        where item_name like '2.5” HDD %';
+        set item_name = right(item_name , length(item_name) - 4 )
+        where item_name like '2.5%';
+
         update items
-        set item_name = right(item_name , length(item_name) - 21 )
-        where item_name like '2.5” Hard Disk Drive %';
-        update items
-        set item_name = right(item_name , length(item_name) - 9 )
-        where item_name like '2.5” SSD %';
-        update items
-        set item_name = right(item_name , length(item_name) - 23 )
-        where item_name like '2.5” Solid State Drive %';
+        set item_name = right(item_name , length(item_name) - 4 )
+        where item_name like '3.5%';
+
         update items
         set item_name = right(item_name , length(item_name) - 4 )
         where item_name like 'GPU %';
+
         update items
         set item_name = right(item_name , length(item_name) - 13 )
         where item_name like 'Graphic Card %';
+
         update items
         set item_name = right(item_name , length(item_name) - 4 )
         where item_name like 'VGA %';
+
+        update items
+        set item_name = right(item_name , length(item_name) - 5 )
+        where item_name like ' SSD %';
+
+        update items
+        set item_name = right(item_name , length(item_name) - 19 )
+        where item_name like ' Solid State Drive %';
+
+        update items
+        set item_name = right(item_name , length(item_name) - 17 )
+        where item_name like ' Hard Disk Drive %';
+
+        update items
+        set item_name = right(item_name , length(item_name) - 21 )
+        where item_name like ' External Hard Drive %';
+
+        update items
+        set item_name = right(item_name , length(item_name) - 12 )
+        where item_name like ' Desktop HDD %';
+
+        update items
+        set item_name = right(item_name , length(item_name) - 1 )
+        where item_name like 'Hard disk Drive %';
+
     </update>
     <update id="updateBrand">
         update items
@@ -237,5 +234,42 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="searchItemTypeDB" resultType="com.compare.pcparts.webscrape.PcPartsItem">
+        SELECT *
+        FROM items where item_type = #{itemType};
+    </select>
+    <select id="searchBrand" resultType="com.compare.pcparts.webscrape.PcPartsItem">
+        <bind name="itemBrand" value="itemBrand+'%'"/>
+        SELECT *
+        FROM items
+        where item_name
+        ilike #{itemBrand}
+    </select>
+
+
+    <select id="getStoreInfo" resultType="com.compare.pcparts.store.items.StoreItem">
+        SELECT *
+        FROM store;
+    </select>
+    <select id="getStoreContactInfo" resultType="com.compare.pcparts.store.items.StoreContactDetailItem">
+        SELECT *
+        FROM store_contact_detail;
+    </select>
+    <select id="getStoreOperatingTime" resultType="com.compare.pcparts.store.items.StoreOperatingTimeItem">
+        SELECT *
+        FROM store_operating_time;
+    </select>
+    <select id="getStoreXPath" resultType="com.compare.pcparts.store.items.StoreXPathItem">
+        select *
+        FROM store_xpath
+        where store_id = #{id};
+    </select>
+    <select id="getStoreUrl" resultType="com.compare.pcparts.store.items.StoreUrlItem">
+        SELECT *
+        FROM store_items_url
+        where store_id = #{id} ;
+    </select>
+
 
 </mapper>

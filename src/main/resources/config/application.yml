@@ -26,7 +26,7 @@ productNameXpath: .//div[@class='item-title']/a[@href]
 productPriceXpath: .//span[@class='woocs_price_code']/ins
 productUrlXpath: .//div[@class='item-title']/a
 productAltXpath1: .//span[@class='woocommerce-Price-amount amount']
-productAltXpath2:
+productAltXpath2: .//span[@class='wooc_price_code']
 productAltXpath3:
 cpuUrl:
   - https://mojitech.net/product-category/pc-parts/cpus/?currency=USD
